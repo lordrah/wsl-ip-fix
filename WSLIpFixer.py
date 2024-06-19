@@ -7,18 +7,7 @@ class WSLIpFixer(object):
 
     @staticmethod
     def __get_wsl_host_ip():
-        output = subprocess.check_output(["cat", "/etc/resolv.conf"])
-        output_lines = output.decode('utf-8').split("\n")
-
-        wsl_host_ip = None
-
-        for line in output_lines:
-            line_parts = line.split(' ')
-            if len(line_parts) > 0 and line_parts[0] == 'nameserver':
-                wsl_host_ip = line_parts[1]
-                break
-
-        return wsl_host_ip
+        return subprocess.check_output("ip route list default | awk '{print $3}'", shell=True)
 
     @staticmethod
     def __get_wsl_ip():
