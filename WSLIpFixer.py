@@ -7,7 +7,8 @@ class WSLIpFixer(object):
 
     @staticmethod
     def __get_wsl_host_ip():
-        return subprocess.check_output("ip route list default | awk '{print $3}'", shell=True)
+        ip = subprocess.check_output("ip route list default | awk '{print $3}'", shell=True)
+        return ip.strip()
 
     @staticmethod
     def __get_wsl_ip():
